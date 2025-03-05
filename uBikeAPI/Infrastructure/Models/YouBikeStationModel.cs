@@ -105,7 +105,7 @@ namespace uBikeAPI.Infrastructure.Models
     {
         public int retCode { get; set; }
         public string updated_at { get; set; }
-        public YouBikeStationModel[] retVal { get; set; }
+        public List<YouBikeStationModel> retVal { get; set; }
     }
 
     public class YouBikeStationModel
