@@ -19,10 +19,15 @@ namespace uBikeAPI.Infrastructure.Services
         {
             if (!_memoryCache.TryGetValue("YouBikeStations", out List<YouBikeStationModel> youBikeStations))
             {
-                youBikeStations = await _youBikeRepository.FetchYouBikeStations();
-                _memoryCache.Set("YouBikeStations", youBikeStations, TimeSpan.FromMinutes(5));
+                var data = await _youBikeRepository.FetchYouBikeStations();
+                //如果抓到空陣列就不更新快取
+                if (data.Count > 0)
+                {
+                    _memoryCache.Set("YouBikeStations", youBikeStations, TimeSpan.FromMinutes(5));
+                    youBikeStations = data;
+                }
             }
-            return youBikeStations ?? new List<YouBikeStationModel>();
+            return youBikeStations;
         }
     }
 }

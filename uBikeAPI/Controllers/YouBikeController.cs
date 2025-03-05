@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using uBikeAPI.Infrastructure.Interface;
+using uBikeAPI.Infrastructure.Models;
 
 namespace uBikeAPI.Controllers
 {
@@ -16,7 +17,7 @@ namespace uBikeAPI.Controllers
         public async Task<IActionResult> GetYouBikeStations()
         {
             var stations = await _youBikeService.GetYouBikeStations();
-            return Ok(stations);
+            return Ok(stations ?? new List<YouBikeStationModel>()); //有可能斷網會回傳204, 回傳空陣列
         }
     }
 }
