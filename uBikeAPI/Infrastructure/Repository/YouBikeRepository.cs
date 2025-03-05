@@ -7,23 +7,24 @@ namespace uBikeAPI.Infrastructure.Repository
 {
     public class YouBikeRepository : IYouBikeRepository
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
         private const string uBikeUrl = "https://api.kcg.gov.tw/api/service/Get/b4dd9c40-9027-4125-8666-06bef1756092";
 
-        public YouBikeRepository(HttpClient httpClient)
+        public YouBikeRepository(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<List<YouBikeStationModel>> FetchYouBikeStations()
         {
             try
             {
-                using var response = await _httpClient.GetAsync(uBikeUrl);
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetAsync(uBikeUrl);
                 response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<UBikeApiResponse>(json);
-                return data?.Data?.RetVal ?? new List<YouBikeStationModel>();
+                var result = JsonConvert.DeserializeObject<Rootobject>(json);
+                return result.data.retVal;
             }
             catch
             {

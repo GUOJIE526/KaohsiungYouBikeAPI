@@ -16,7 +16,7 @@ namespace uBikeAPI.Controllers
         public async Task<IActionResult> GetYouBikeStations()
         {
             var stations = await _youBikeService.GetYouBikeStations();
-            return stations != null ? Ok(stations) : StatusCode(500, "讀取失敗");
+            return Ok(stations);
         }
     }
 }

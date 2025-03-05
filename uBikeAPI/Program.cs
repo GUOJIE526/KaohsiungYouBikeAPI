@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient<IYouBikeRepository, YouBikeRepository>();
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<IYouBikeService, YouBikeService>();
 builder.Services.AddScoped<IYouBikeRepository, YouBikeRepository>();
 builder.Services.AddMemoryCache();
