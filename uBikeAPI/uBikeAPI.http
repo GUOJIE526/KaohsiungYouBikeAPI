@@ -1,0 +1,6 @@
+@uBikeAPI_HostAddress = http://localhost:5201
+
+GET {{uBikeAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
